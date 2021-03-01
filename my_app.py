@@ -27,6 +27,8 @@ from bokeh.plotting import figure, output_file, show
 from bokeh.palettes import Dark2_5 as palette
 from bokeh.palettes import Magma256
 import plotly.graph_objects as go
+import plotly.express as px
+import plotly.graph_objects as go
 
 
 st.title(" Test App Web Etalonnage Capteur CFOP")
@@ -149,6 +151,9 @@ def capteur_id_nbr(df):
 nbr_capt_id = capteur_id_nbr(df_final)
 
 def verif_recalage(df):
+    
+    #st.write(df)
+    #st.stop
     y_overlimit = 0.0
     df=df.copy()
     list_graph_capt=[]
@@ -161,6 +166,7 @@ def verif_recalage(df):
             df_aff = df_temp
             df_aff =df_aff.reset_index(drop=True)
             #st.write(df_aff)
+            
             s = figure(width=250, plot_height=250, title="Temperature "+str(temp), x_axis_label='temps(UA)', y_axis_label="capteur "+str(num_capt))
             if k==0:
                 s.line(df_aff.index, df_aff["lambdaP"+str(num_capt)], legend_label="lambdaP"+str(num_capt),line_color="blue")
@@ -190,12 +196,36 @@ def verif_recalage(df):
     return layout
 
 
-checker0 = st.checkbox('Cochez pour observer la variation de lambdaP,T et de la Pression en fonction du temps',value=False)
-if checker0==True:
+    y_overlimit = 0.0
+    df=df.copy()
+    list_graph_capt=[]
+    for num_capt in nbr_capt_id:
+        list_graph_temp=[]
+        for k,temp in enumerate(list_temp_df):
+            
+            df_temp = df[df["Temperature"]==temp]
+            #df_aff= sf.standardize_df_MinMax(df_temp)
+            df_aff = df_temp
+            df_aff =df_aff.reset_index(drop=True)
+            #st.write(df_aff)
+            fig = go.Figure()
+            
+            if k==0:
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["lambdaP"+str(num_capt)]))
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["lambdaT"+str(num_capt)]))
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["Pression"]))
+                
+                
+                
+                
+            else:
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["lambdaP"+str(num_capt)]))
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["lambdaT"+str(num_capt)]))
+                fig.add_trace(go.Scatter(x=df_aff.index, y=df_aff["Pression"]))
+            list_graph_temp.append(fig)
+        list_graph_capt.append(list_graph_temp)
     
-    
-    fig= verif_recalage(df_final)
-    st.bokeh_chart(fig,use_container_width=False)
+    return list_graph_capt
 
 def courbes_capteurs_pression(df):
     df= df
@@ -209,7 +239,7 @@ def courbes_capteurs_pression(df):
 
     for name_col in features:
 
-            fig =plt.figure(figsize=(70,5),dpi=450)
+            fig =plt.figure(figsize=(100,7),dpi=1000)
 
 
             for  i,temp in enumerate(temp_list) :
@@ -245,8 +275,16 @@ def courbes_capteurs_pression(df):
             list_fig.append(fig)
     return list_fig
 
-#for ele in courbes_capteurs_pression(df_final):
-    #st.pyplot(ele)
+
+checker0 = st.checkbox('Cochez pour observer la variation de lambdaP,T et de la Pression en fonction du temps',value=False)
+if checker0==True:
+    
+    for ele in courbes_capteurs_pression(df_final):
+        st.pyplot(ele)
+    
+    #fig0= verif_recalage(df_final)
+    #st.bokeh_chart(fig0)
+
 
 
 
