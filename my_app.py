@@ -44,7 +44,7 @@ def load_fichiers(uploaded_file):
         st.write(":no_entry_sign: Aucun fichier chargé")
         exemple = st.checkbox("Cochez cette case pour charger des fichiers à titre d'exemple")
         if exemple==True:
-            data_folder= Path("Data./")
+            data_folder= Path("./Data")
             fichier_txt = list(data_folder.glob('**/*.txt'))
             fichier_xls = list(data_folder.glob('**/*.xls'))
     
