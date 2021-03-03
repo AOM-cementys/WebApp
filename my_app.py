@@ -109,7 +109,7 @@ def get_table_download_link(df):
     in:  dataframe
     out: href string
     """
-    csv = df.to_csv(index=False)
+    csv = df.to_csv(index=False, sep=';')
     b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
     href = f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">lien_tableau</a>'
     return href
@@ -141,7 +141,7 @@ list_temp_df = list_temp(df_final)
 def capteur_id_nbr(df):
 
     plop=[]
-    for ele in list(df_final.columns):
+    for ele in list(df.columns):
         if ele.startswith("lambdaP"):
             plop.append(ele)
     nbr_capt_id = [i for i in range(0,len(plop),1)]
@@ -239,7 +239,7 @@ def courbes_capteurs_pression(df):
 
     for name_col in features:
 
-            fig =plt.figure(figsize=(100,7),dpi=1000)
+            fig =plt.figure(figsize=(50,3))
 
 
             for  i,temp in enumerate(temp_list) :
@@ -278,8 +278,8 @@ def courbes_capteurs_pression(df):
 
 checker0 = st.checkbox('Cochez pour observer la variation de lambdaP,T et de la Pression en fonction du temps',value=False)
 if checker0==True:
-    
-    for ele in courbes_capteurs_pression(df_final):
+    listus_f = courbes_capteurs_pression(df_final)
+    for ele in listus_f:
         st.pyplot(ele)
     
     #fig0= verif_recalage(df_final)
