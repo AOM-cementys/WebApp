@@ -314,7 +314,7 @@ st.text("-----------------------------------------------------------------------
 def bokehtisation(df):
     dict_fig_boke={}
     for ele in df.columns:
-        p = figure(title=str(ele)+" en fonction de la Pression pour diverses temperatures", x_axis_label='Pression', y_axis_label=str(ele))
+        p = figure(title=str(ele)+" en fonction de la Pression pour diverses temperatures", x_axis_label='Pression (bar)', y_axis_label=str(ele)+" nm")
         
         colors = itertools.cycle(palette)  
         
