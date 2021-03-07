@@ -31,11 +31,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 
-st.title(" Test App Web Etalonnage Capteur CFOP")
+st.title("WebApp etalonnage capteurs à fibre optique ")
 
 
 uploaded_file  = st.file_uploader("Déposez les fichiers sous la forme Pression_30.xls (en provenance du manomètre) ,Channel4_30.txt(en provenance du spectromètre)", type=["xls", "txt"], accept_multiple_files=True)
-st.write(":inbox_tray: Les fichiers en provenance du bragglogger peuvent s'intituler ChannelX_TTT avec\n X un chiffre entre 0 et 9 et TTT, la temperature en °C")
+st.write(":inbox_tray: Les fichiers en provenance du spectromètre peuvent s'intituler ChannelX_TTT avec\n X un chiffre entre 0 et 9 et TTT, la temperature en °C")
 st.write(":inbox_tray: Les fichiers Pression et Channel doivent se terminer par une température pour être associés entre eux. ")
 
 
