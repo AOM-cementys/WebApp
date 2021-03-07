@@ -314,7 +314,7 @@ st.text("-----------------------------------------------------------------------
 def bokehtisation(df):
     dict_fig_boke={}
     for ele in df.columns:
-        p = figure(title=str(ele)+" en fonction de la Pression pour diverses temperatures", x_axis_label='Pression (bar)', y_axis_label=str(ele)+" nm")
+        p = figure(title=str(ele)+" en fonction de la Pression pour diverses temperatures", x_axis_label='Pression (bar)', y_axis_label=str(ele)+" (nm)")
         
         colors = itertools.cycle(palette)  
         
@@ -353,9 +353,13 @@ def plotlysation(df,capteur_id):
 
     x="lambdaP"+str(capteur_id)
     y="lambdaT"+str(capteur_id)
-    
+    z="Pression"
     df["Temperature"]=df["Temperature"].astype(str)
-    fig0 = px.scatter_3d(df,x=x,y=y,z="Pression",color="Temperature")
+    fig0 = px.scatter_3d(df,x=x,y=y,z=z,labels={
+                     x: x +" (nm)",
+                     y: y+ " (nm)",
+                     z: z+ " (bar)"
+                 },color="Temperature")
     df["Temperature"]=df["Temperature"].astype(float)
 
     fig0.update_layout(title="Pression en fonction de lambdaP,T", autosize=False,
@@ -436,9 +440,9 @@ def fitteur_traceur(df,column_selector3,deg_poly_selector ):
                                 yaxis = dict(nticks=6, range=[borne_inf_T-(plageT/2),borne_sup_T+(plageT/2)],),
                                 zaxis = dict(nticks=6, range=[-2,df["Pression"].max()+5],),
 
-                                xaxis_title="lambdaP"+str(num_capteur),
-                                yaxis_title="lambdaT"+str(num_capteur),
-                                zaxis_title="Pression"
+                                xaxis_title="lambdaP"+str(num_capteur)+" (nm)",
+                                yaxis_title="lambdaT"+str(num_capteur)+" (nm)",
+                                zaxis_title="Pression (bar)"
                                 ),
                             
                             
