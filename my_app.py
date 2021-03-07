@@ -34,7 +34,7 @@ import plotly.graph_objects as go
 st.title(" Test App Web Etalonnage Capteur CFOP")
 
 
-uploaded_file  = st.file_uploader("Déposez les fichiers sous la forme Pression_30.xls (en provenance de la sonde Additel) ,Channel4_30.txt(en provenance du BraggLogger)", type=["xls", "txt"], accept_multiple_files=True)
+uploaded_file  = st.file_uploader("Déposez les fichiers sous la forme Pression_30.xls (en provenance du manomètre) ,Channel4_30.txt(en provenance du spectromètre)", type=["xls", "txt"], accept_multiple_files=True)
 st.write(":inbox_tray: Les fichiers en provenance du bragglogger peuvent s'intituler ChannelX_TTT avec\n X un chiffre entre 0 et 9 et TTT, la temperature en °C")
 st.write(":inbox_tray: Les fichiers Pression et Channel doivent se terminer par une température pour être associés entre eux. ")
 
@@ -276,8 +276,8 @@ def courbes_capteurs_pression(df):
     return list_fig
 
 
-checker0 = st.checkbox('Cochez pour observer la variation de lambdaP,T et de la Pression en fonction du temps',value=False)
-if checker0==True:
+#checker0 = st.checkbox('Cochez pour observer la variation de lambdaP,T et de la Pression en fonction du temps',value=False)
+#if checker0==True:
     listus_f = courbes_capteurs_pression(df_final)
     for ele in listus_f:
         st.pyplot(ele)
